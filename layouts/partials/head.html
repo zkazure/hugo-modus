@@ -1,23 +1,23 @@
 {{- $title := "" -}}
 {{- if .IsHome -}}
-  {{- $title = .Site.Title -}}
+{{- $title = .Site.Title -}}
 {{- else if .IsPage -}}
-  {{- $title = printf "%s - %s" .Title .Site.Title -}}
+{{- $title = printf "%s - %s" .Title .Site.Title -}}
 {{- else if .IsSection -}}
-  {{- $title = printf "%s - %s" (.Title | default (.Type | humanize)) .Site.Title -}}
+{{- $title = printf "%s - %s" (.Title | default (.Type | humanize)) .Site.Title -}}
 {{- end -}}
 
 {{- $description := "" -}}
 {{- with .Description -}}
-  {{- $description = . | truncate 160 -}}
+{{- $description = . | truncate 160 -}}
 {{- else -}}
-  {{- if .IsPage -}}
-    {{- $description = .Summary | truncate 160 -}}
-  {{- else -}}
-    {{- with .Site.Params.description -}}
-      {{- $description = . -}}
-    {{- end -}}
-  {{- end -}}
+{{- if .IsPage -}}
+{{- $description = .Summary | truncate 160 -}}
+{{- else -}}
+{{- with .Site.Params.description -}}
+{{- $description = . -}}
+{{- end -}}
+{{- end -}}
 {{- end -}}
 
 
@@ -61,9 +61,13 @@
 />
 
 {{ with .OutputFormats.Get "rss" -}}
-  {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
+{{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
 {{ end }}
 
 {{ if hugo.IsProduction }}
-  {{ template "_internal/google_analytics.html" . }}
+{{ template "_internal/google_analytics.html" . }}
+{{ end }}
+
+{{ if or .Params.math .Site.Params.math }}
+{{ partial "math.html" . }}
 {{ end }}

@@ -2,6 +2,10 @@
 
 An opinionated Hugo theme using the [colour palette of the Modus themes](https://protesilaos.com/emacs/modus-themes-colors).
 
+## Change log 
+
+1. add support of MathJax
+
 ## Installation
 
 1. Install the theme in your project

@@ -5,7 +5,8 @@ An opinionated Hugo theme using the [[https://protesilaos.com/emacs/modus-themes
 ** Change log
 
 - [X] add support of MathJax
-- [ ] better table support
+- [X] better table support
+- [ ] add verse support
 
 ** Installation
 

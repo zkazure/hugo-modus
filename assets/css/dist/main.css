@@ -562,6 +562,86 @@
     display: flex;
   }
 
+  article .table-wrapper {
+    margin-block: calc(var(--spacing) * 6);
+    overflow-x: auto;
+  }
+
+  article table {
+    border-color: var(--color-operandi-black);
+    width: 100%;
+    border-collapse: collapse;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-style: solid;
+    font-size: var(--text-base);
+    line-height: var(--tw-leading, var(--text-base--line-height));
+  }
+
+  @media (prefers-color-scheme: dark) {
+    article table {
+      border-color: var(--color-vivendi-white-dim);
+    }
+  }
+
+  article table caption {
+    color: var(--color-operandi-black-dim);
+    font-family: var(--font-serif);
+    margin-bottom: calc(var(--spacing) * 2);
+    caption-side: bottom;
+    text-align: center;
+    font-size: var(--text-sm);
+    line-height: var(--tw-leading, var(--text-sm--line-height));
+  }
+
+  @media (prefers-color-scheme: dark) {
+    article table caption {
+      color: var(--color-vivendi-white-dim);
+    }
+  }
+
+  article table thead {
+    border-color: var(--color-operandi-black);
+    border-bottom-width: 1px;
+    border-style: solid;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    article table thead {
+      border-color: var(--color-vivendi-white-dim);
+    }
+  }
+
+  article table th, article table td {
+    padding-inline: calc(var(--spacing) * 4);
+    padding-block: calc(var(--spacing) * 2);
+    vertical-align: top;
+  }
+
+  article table th {
+    font-weight: 600;
+    text-align: left;
+  }
+
+  article table td {
+    text-align: left;
+  }
+
+  @media (hover: hover) {
+    article table tbody tr:hover {
+      background-color: var(--color-operandi-nuanced-blue);
+      transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
+      transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+      transition-duration: var(--tw-duration, var(--default-transition-duration));
+    }
+  }
+
+  @media (hover: hover) and (prefers-color-scheme: dark) {
+    article table tbody tr:hover {
+      background-color: var(--color-vivendi-nuanced-blue);
+    }
+  }
+
   article code {
     font-size: var(--text-sm);
     line-height: var(--tw-leading, var(--text-sm--line-height));

@@ -42,6 +42,7 @@ The theme uses **Tailwind CSS 4** with a custom theme configuration:
 - All Modus theme colors are defined as CSS custom properties in the `@theme` block
 - Two color schemes: `operandi-*` (light) and `vivendi-*` (dark)
 - Color categories: base colors (red, green, yellow, blue, magenta, cyan), special colors (rust, gold, olive, etc.), background colors (intense, subtle, nuanced)
+- Markdown tables render as academic "three-line tables" with Modus-themed borders, left-aligned cells, and a responsive scroll wrapper
 
 ### Layout Structure
 

@@ -258,6 +258,40 @@
       @apply mx-6 flex flex-col gap-2;
     }
 
+    .table-wrapper {
+      @apply my-6 overflow-x-auto;
+    }
+
+    table {
+      @apply border-operandi-black dark:border-vivendi-white-dim w-full border-collapse border-t-2 border-b-2 text-base;
+
+      caption {
+        @apply text-operandi-black-dim dark:text-vivendi-white-dim font-serif mb-2 caption-bottom text-center text-sm;
+      }
+
+      thead {
+        @apply border-operandi-black dark:border-vivendi-white-dim border-b;
+      }
+
+      th,
+      td {
+        @apply px-4 py-2 align-top;
+      }
+
+      th,
+      td {
+        @apply text-left;
+      }
+
+      th {
+        @apply font-semibold;
+      }
+
+      tbody tr:hover {
+        @apply bg-operandi-nuanced-blue dark:bg-vivendi-nuanced-blue transition-colors;
+      }
+    }
+
     code {
       @apply text-operandi-magenta-warmer dark:text-vivendi-magenta-warmer text-sm;
     }

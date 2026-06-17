@@ -1,0 +1,50 @@
+* hugo-modus
+
+An opinionated Hugo theme using the [[https://protesilaos.com/emacs/modus-themes-colors][colour palette of the Modus themes]].
+
+** Change log
+
+- [X] add support of MathJax
+- [ ] better table support
+
+** Installation
+
+1. Install the theme in your project
+
+#+BEGIN_SRC shell
+git submodule add https://github.com/zkazure/hugo-modus.git themes/hugo-modus
+#+END_SRC
+
+2. Configure the theme in =hugo.toml=
+
+#+BEGIN_SRC
+theme = "hugo-modus"
+#+END_SRC
+
+** Usage
+
+*** New section
+
+#+BEGIN_SRC shell
+hugo new -k section posts/_index.md
+#+END_SRC
+
+*** New content
+
+#+BEGIN_SRC shell
+hugo new posts/your-first-post.md
+#+END_SRC
+
+** Development
+
+*** Watch for changes and rebuild CSS
+
+#+BEGIN_SRC shell
+make watch
+#+END_SRC
+
+*** Start the Hugo server for developing
+
+#+BEGIN_SRC shell
+make dev
+#+END_SRC

@@ -6,7 +6,8 @@ An opinionated Hugo theme using the [[https://protesilaos.com/emacs/modus-themes
 
 - [X] add support of MathJax
 - [X] better table support
-- [ ] add verse support
+- [ ] add modus theme support
+- [ ] remove nix
 
 ** Installation
 
@@ -38,14 +39,12 @@ hugo new posts/your-first-post.md
 
 ** Development
 
-*** Watch for changes and rebuild CSS
+The theme is styled with Tailwind CSS 4. The site loads the compiled
+=assets/css/dist/main.css=, so after editing the source
+=assets/css/main.css= you must rebuild it.
 
-#+BEGIN_SRC shell
-make watch
-#+END_SRC
-
-*** Start the Hugo server for developing
-
-#+BEGIN_SRC shell
-make dev
-#+END_SRC
+| Command      | Description                                                |
+|--------------+------------------------------------------------------------|
+| =make dev=   | Start the Hugo server against =exampleSite= for previewing |
+| =make watch= | Watch =main.css= and rebuild on every change               |
+| =make build= | Compile =main.css= once, optimized for production          |

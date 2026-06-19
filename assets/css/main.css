@@ -324,4 +324,73 @@
   .navbar-brand {
     @apply text-xl text-current no-underline hover:bg-transparent md:text-2xl;
   }
+
+  /* ── Org mode (Hugo go-org) content ──────────────────────────────────
+     Hugo renders .org files through its built-in go-org parser, which
+     emits different class names than Emacs' ox-html exporter (e.g.
+     `.todo.status-todo` instead of `.todo`, `.tags > span` instead of
+     `.tag`). These rules adapt the Modus palette to go-org's output. */
+
+  /* Restore vertical rhythm inside go-org's nested .outline-* wrappers,
+     since `article *:not(h2, h3, h4) { margin: 0 }` strips it. */
+  .outline-text-2,
+  .outline-text-3,
+  .outline-text-4 {
+    @apply flex flex-col gap-4;
+  }
+
+  /* TODO / DONE keywords in headings */
+  .todo {
+    @apply font-mono text-base font-semibold;
+  }
+
+  .status-todo {
+    @apply text-operandi-red dark:text-vivendi-red;
+  }
+
+  .status-done {
+    @apply text-operandi-green dark:text-vivendi-green;
+  }
+
+  /* Priority cookies: [#A] [#B] [#C] */
+  .priority {
+    @apply text-operandi-gold dark:text-vivendi-gold font-mono text-base font-semibold;
+  }
+
+  /* Inline heading tags (:tag1:tag2:) */
+  .tags {
+    @apply ml-2 inline-flex gap-1 align-middle;
+  }
+
+  .tags > span {
+    @apply text-operandi-black-dim dark:text-vivendi-white-dim bg-operandi-gray dark:bg-vivendi-gray rounded px-1 font-mono text-xs font-normal;
+  }
+
+  /* Active / inactive timestamps */
+  .timestamp {
+    @apply text-operandi-black-dim dark:text-vivendi-white-dim font-mono text-sm;
+  }
+
+  .timestamp-kwd {
+    @apply text-operandi-cyan dark:text-vivendi-cyan;
+  }
+
+  /* #+BEGIN_EXAMPLE blocks */
+  pre.example {
+    @apply border-operandi-gray dark:border-vivendi-gray bg-operandi-white-dim dark:bg-vivendi-black-dim overflow-x-auto rounded-lg border p-4 font-mono text-sm;
+  }
+
+  /* #+BEGIN_VERSE blocks */
+  .verse {
+    @apply ml-6;
+  }
+
+  /* Footnote definitions */
+  .footnote-definitions {
+    @apply flex flex-col gap-2 text-sm;
+  }
+
+  .footnote-definition {
+    @apply flex gap-2;
+  }
 }

@@ -6,8 +6,6 @@ An opinionated Hugo theme using the [[https://protesilaos.com/emacs/modus-themes
 
 - [X] add support of MathJax
 - [X] better table support
-- [ ] add modus theme support
-- [ ] remove nix
 
 ** Installation
 

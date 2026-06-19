@@ -20,6 +20,8 @@
       --tw-ring-offset-width: 0px;
       --tw-ring-offset-color: #fff;
       --tw-ring-offset-shadow: 0 0 #0000;
+      --tw-leading: initial;
+      --tw-tracking: initial;
     }
   }
 }
@@ -54,6 +56,8 @@
     --font-weight-normal: 400;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
+    --tracking-wider: .05em;
+    --leading-relaxed: 1.625;
     --radius-lg: .5rem;
     --radius-2xl: 1rem;
     --default-transition-duration: .15s;
@@ -72,12 +76,14 @@
     --color-operandi-blue-faint: #003497;
     --color-operandi-magenta: #721045;
     --color-operandi-magenta-warmer: #8f0075;
+    --color-operandi-magenta-cooler: #531ab6;
     --color-operandi-cyan: #005e8b;
     --color-operandi-gold: #80601f;
     --color-operandi-gray: #e0e0e0;
     --color-operandi-intense-blue: #bfc9ff;
     --color-operandi-subtle-blue: #ccdfff;
     --color-operandi-nuanced-blue: #f3f3ff;
+    --color-operandi-nuanced-magenta: #fdf0ff;
     --color-vivendi-white: #fff;
     --color-vivendi-white-dim: #989898;
     --color-vivendi-white-alt: #c6daff;
@@ -90,12 +96,14 @@
     --color-vivendi-blue-faint: #82b0ec;
     --color-vivendi-magenta: #feacd0;
     --color-vivendi-magenta-warmer: #f78fe7;
+    --color-vivendi-magenta-cooler: #b6a0ff;
     --color-vivendi-cyan: #00d3d0;
     --color-vivendi-gold: #c0965b;
     --color-vivendi-gray: #303030;
     --color-vivendi-intense-blue: #1640b0;
     --color-vivendi-subtle-blue: #242679;
     --color-vivendi-nuanced-blue: #0f0e39;
+    --color-vivendi-nuanced-magenta: #230631;
   }
 }
 
@@ -805,7 +813,37 @@
   }
 
   .verse {
-    margin-left: calc(var(--spacing) * 6);
+    margin-block: calc(var(--spacing) * 4);
+    border-top-right-radius: var(--radius-lg);
+    border-bottom-right-radius: var(--radius-lg);
+    border-left-style: var(--tw-border-style);
+    --tw-border-style: solid;
+    border-style: solid;
+    border-left-width: 4px;
+    border-color: var(--color-operandi-magenta-cooler);
+    background-color: var(--color-operandi-nuanced-magenta);
+    padding-inline: calc(var(--spacing) * 10);
+    padding-block: calc(var(--spacing) * 4);
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    line-height: var(--tw-leading, var(--text-xl--line-height));
+    --tw-leading: var(--leading-relaxed);
+    line-height: var(--leading-relaxed);
+    --tw-tracking: var(--tracking-wider);
+    letter-spacing: var(--tracking-wider);
+    font-style: italic;
+  }
+
+  @media (min-width: 48rem) {
+    .verse {
+      font-size: var(--text-2xl);
+      line-height: var(--tw-leading, var(--text-2xl--line-height));
+    }
+  }
+
+  .verse:where(.dark, .dark *) {
+    border-color: var(--color-vivendi-magenta-cooler);
+    background-color: var(--color-vivendi-nuanced-magenta);
   }
 
   .footnote-definitions {
@@ -1159,4 +1197,14 @@
   syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
+}
+
+@property --tw-leading {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-tracking {
+  syntax: "*";
+  inherits: false
 }

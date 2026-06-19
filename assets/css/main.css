@@ -380,9 +380,10 @@
     @apply border-operandi-gray dark:border-vivendi-gray bg-operandi-white-dim dark:bg-vivendi-black-dim overflow-x-auto rounded-lg border p-4 font-mono text-sm;
   }
 
-  /* #+BEGIN_VERSE blocks */
+  /* #+BEGIN_VERSE blocks. ox-hugo (ox-html backend) emits <p class="verse">
+     with <br/> for line breaks and &#xa0; for indentation. */
   .verse {
-    @apply ml-6;
+    @apply border-operandi-magenta-cooler dark:border-vivendi-magenta-cooler bg-operandi-nuanced-magenta dark:bg-vivendi-nuanced-magenta my-4 rounded-r-lg border-l-4 border-solid px-10 py-4 font-serif text-xl leading-relaxed tracking-wider italic md:text-2xl;
   }
 
   /* Footnote definitions */

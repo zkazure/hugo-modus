@@ -1,0 +1,175 @@
+#+title: Org 导出路径 Class 对照与样式迁移指南
+#+author: hugo-modus
+
+* 目标
+
+本主题需要同时面对多条 Org → HTML 的渲染路径。org-publish（纯 =ox-html= 后端）导出的 =style.css= 是在 Emacs/Modus 主题下最完整的视觉参考，但它使用的 HTML class 与 ox-hugo → Hugo goldmark 渲染后的 class 并不相同。
+
+本文档的目标是：
+
+1. 以 =scripts/published/style.css= 为视觉参考；
+2. 以 ox-hugo + Hugo goldmark + 本主题实际渲染出的 class 为目标；
+3. 使用主题已经定义的 Modus CSS 变量（=operandi-*= / =vivendi-*=）实现正确渲染。
+
+* 路径说明
+
+** org-publish（参考路径）
+
+=scripts/generate-publish.el= 调用 =org-publish= 与 =org-html-publish-to-html=，把 =scripts/comparison.org= 导出为：
+
+- =scripts/published/comparison.html=
+- =scripts/published/style.css=
+
+style.css 来自 =org-html-htmlize-generate-css=，包含当前 Emacs 主题下所有 face 的 CSS 定义。
+
+** ox-hugo + goldmark（主题实际渲染路径）
+
+本主题作者博客与多数 ox-hugo 用户走的路径：
+
+#+begin_src text
+.org --(ox-hugo)--> .md --(Hugo goldmark)--> HTML --(hugo-modus CSS)--> 最终样式
+#+end_src
+
+本路径的关键特征是：代码块由 Hugo 的 Chroma 高亮，正文中的 Org 元素被 ox-hugo 输出为内嵌 HTML（需要 =markup.goldmark.renderer.unsafe = true=）。
+
+* 结构元素对照表
+
+下表列出常见 Org 元素在两条路径下的 class 差异，以及迁移到本主题时应使用的 CSS 变量/规则。
+
+| Org 元素       | org-publish class          | ox-hugo + goldmark class  | 主题应使用的 Modus 变量                                  | 当前覆盖状态                             |
+|----------------+----------------------------+---------------------------+----------------------------------------------------------+------------------------------------------|
+| TODO 关键字    | =.todo.TODO=               | =.org-todo.todo.TODO=     | =text-operandi-red dark:text-vivendi-red=                | 部分：已有等宽字体，缺颜色                |
+| DONE 关键字    | =.done.DONE=               | =.org-todo.done.DONE=     | =text-operandi-green dark:text-vivendi-green=            | 缺失                                     |
+| 优先级         | =.priority=                | 纯文本 =[#A]=，无 span    | 无法通过 CSS 命中                                        | 不适用                                   |
+| 标题标签       | =.tag > .tag1= 等          | =.tag > .tag1= 等         | =text-operandi-black-dim dark:text-vivendi-white-dim= 等 | 部分：=.tags= 命中 go-org，=.tag= 未覆盖 |
+| verse 块       | =p.verse=                  | =div.verse=               | 已有 =.verse= 规则，可覆盖两者                            | 已覆盖                                   |
+| 下划线         | =span.underline=           | =span.underline=          | 可沿用通用下划线样式                                      | 未单独定义                               |
+| 居中块         | =div.org-center=           | =div.org-center=          | 无需额外样式（ox-hugo 自带 inline style）                 | 无需覆盖                                 |
+| details 块     | =div.details=              | =details > div.details=   | 可沿用通用样式                                           | 未单独定义                               |
+| src 块容器     | =.org-src-container=       | =.highlight= / =.chroma=  | 由 =assets/css/dist/*-chroma-style.css= 处理             | 已覆盖                                   |
+| 代码高亮 token | =.org-keyword= 等          | =.chroma .k= 等           | 见下表「语法高亮对照」                                    | 已覆盖                                   |
+| example 块     | =pre.example=              | 代码围栏，无 =.example=   | 由 Chroma 处理                                           | 不适用                                   |
+| 表格对齐       | =.org-left= / =.org-right= | plain table，无对齐 class | 主题已对 table 做全局三线表样式                           | 已覆盖                                   |
+| 脚注引用       | =.footref=                 | =.footnote-ref=           | 低调链接色                                               | 缺失                                     |
+| 脚注返回链接   | —                          | =.footnote-backref=       | 低调链接色                                               | 缺失                                     |
+| 脚注定义       | =.footdef= / =.footpara=   | =.footnote-body= 等       | 沿用 =.footnote-definition= 样式                         | 部分                                     |
+
+* 语法高亮对照
+
+org-publish 使用 Emacs htmlize，把源码 token 包在 =.org-*= span 中；ox-hugo 路径使用 Hugo Chroma，class 短码以 =.chroma .X= 形式出现。主题已为 Chroma 生成了专门的 CSS 文件：
+
+- =assets/css/dist/operandi-chroma-style.css=
+- =assets/css/dist/vivendi-chroma-style.css=
+
+常用映射关系：
+
+| 语义 | org-publish (htmlize) | Chroma 短码 |
+|---|---|---|
+| 关键字 | =.org-keyword= | =.chroma .k= |
+| 字符串 | =.org-string= | =.chroma .s= / =.s1= / =.s2= |
+| 函数名 | =.org-function-name= | =.chroma .nf= |
+| 内置函数 | =.org-builtin= | =.chroma .nb= |
+| 变量名 | =.org-variable-name= | =.chroma .nv= |
+| 类型 | =.org-type= | =.chroma .kt= |
+| 注释 | =.org-comment= | =.chroma .c= / =.c1= |
+| 文档字符串 | =.org-doc= | =.chroma .sd= |
+| 数字 | =.org-number= | =.chroma .m= |
+| 操作符 | =.org-operator= | =.chroma .o= |
+
+因此，代码块样式不需要把 =style.css= 整体照搬，只需确保 Chroma 样式文件完整即可。
+
+* style.css 的使用注意事项
+
+1. **不能直接当外部 CSS 链接**：=org-html-htmlize-generate-css= 输出的是一个 HTML 片段，外层包着 =<style type="text/css"><!-- --></style>=，不是纯 CSS 文件。
+2. **dump 了全部 Emacs face**：生成的 =style.css= 通常有 500+ 行，但真正会出现在代码块里的只有 font-lock 相关的一小部分。
+3. **只作视觉参考**：迁移时应挑选对应 Org 元素在 =style.css= 里的颜色和字体，映射到本主题的 CSS 变量上，而不是复制整份文件。
+
+* 迁移原则
+
+1. **优先使用主题已定义的 Modus CSS 变量**：=text-operandi-red=、=bg-operandi-subtle-blue= 等，确保 light/dark 模式一致。
+2. **选择器要命中 ox-hugo 实际输出的 class**：例如 TODO 应写 =.org-todo.todo= 而不是只写 =.todo=。
+3. **保留 go-org 兼容**：在不冲突的情况下，让同一个规则同时覆盖 go-org 的旧 class（如 =.todo.status-todo=）。
+4. **无法命中的元素在文档中注明**：例如 ox-hugo 的 priority 是纯文本，无法用 CSS 选择器处理。
+
+* 附录：关键片段对比
+
+**TODO 关键字**
+
+org-publish：
+#+begin_src html
+<span class="todo TODO">TODO</span>
+#+end_src
+
+ox-hugo + goldmark + 主题：
+#+begin_src html
+<span class="org-todo todo TODO">TODO</span>
+#+end_src
+
+**标签**
+
+org-publish：
+#+begin_src html
+<span class="tag">
+  <span class="tag1">tag1</span>
+  &#xa0;
+  <span class="tag2">tag2</span>
+</span>
+#+end_src
+
+ox-hugo + goldmark + 主题：
+#+begin_src html
+<span class="tag">
+  <span class="tag1">tag1</span>
+  <span class="tag2">tag2</span>
+</span>
+#+end_src
+
+**verse 块**
+
+org-publish：
+#+begin_src html
+<p class="verse">...</p>
+#+end_src
+
+ox-hugo + goldmark + 主题：
+#+begin_src html
+<div class="verse">
+  <p>...</p>
+</div>
+#+end_src
+
+**src 块**
+
+org-publish：
+#+begin_src html
+<div class="org-src-container">
+  <pre class="src src-emacs-lisp">...</pre>
+</div>
+#+end_src
+
+ox-hugo + goldmark + 主题：
+#+begin_src html
+<div class="highlight">
+  <pre class="chroma">
+    <code class="language-emacs-lisp" data-lang="emacs-lisp">...</code>
+  </pre>
+</div>
+#+end_src
+
+**脚注**
+
+org-publish：
+#+begin_src html
+<a class="footref" href="#fn.1" ...>1</a>
+...
+<div class="footdef">...</div>
+#+end_src
+
+ox-hugo + goldmark + 主题：
+#+begin_src html
+<sup class="footnote-reference">
+  <a id="footnote-reference-1" href="#footnote-1">1</a>
+</sup>
+...
+<div class="footnotes" role="doc-endnotes">...</div>
+#+end_src

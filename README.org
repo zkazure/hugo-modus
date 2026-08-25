@@ -46,3 +46,25 @@ The theme is styled with Tailwind CSS 4. The site loads the compiled
 | =make dev=   | Start the Hugo server against =exampleSite= for previewing |
 | =make watch= | Watch =main.css= and rebuild on every change               |
 | =make build= | Compile =main.css= once, optimized for production          |
+
+*** Generate Org HTML reference CSS
+
+The =scripts/generate-publish.el= helper uses Emacs' built-in
+=org-publish= to export =scripts/sample.org= to HTML and generate a
+matching =style.css=. Load your preferred Modus theme first (e.g. in
+=~/.emacs=), then run:
+
+#+BEGIN_SRC shell
+emacs -batch -l ~/.emacs -l scripts/generate-publish.el
+#+END_SRC
+
+This produces:
+
+#+BEGIN_SRC text
+scripts/published/
+├── sample.html
+└── style.css
+#+END_SRC
+
+The generated =style.css= is for reference only; do not paste it
+wholesale into the theme's =assets/css/main.css=.

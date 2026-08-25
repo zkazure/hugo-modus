@@ -2,6 +2,20 @@
 
 This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
+## Principle
+
+1. 当用户提出任务的时候，不要直接开始实现。
+   - 如果任务目标、约束条件或者期望结果不明确：
+     + 先分析缺失的信息
+     + 通过提问确认需求
+   - 如果明确，请你用你的话重述一遍，询问用户你理解的是否正确
+2. 任何可能影响多个文件或者单文件编辑超过 50 行的操作，都必须要制定一个 plan, 和用户商讨后执行：
+   - 书写在 =plan.md= 中
+   - 书写
+   - plan 必须分为两个层次：
+     + 大纲，分阶段目标
+     + 具体实现、步骤
+
 ## Overview
 
 hugo-modus is a Hugo theme using the colour palette from the Modus themes (Operandi for light mode, Vivendi for dark mode). It's an opinionated, minimalist theme focused on readability and typography.

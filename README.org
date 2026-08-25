@@ -67,4 +67,6 @@ scripts/published/
 #+END_SRC
 
 The generated =style.css= is for reference only; do not paste it
-wholesale into the theme's =assets/css/main.css=.
+wholesale into the theme's =assets/css/main.css=. See
+[[docs/org-export-class-mapping.org][Org export class mapping]] for the
+differences between org-publish and ox-hugo class names.

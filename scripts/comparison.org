@@ -1,0 +1,100 @@
+#+title: Org Export Comparison Reference
+#+author: hugo-modus
+#+date: <2026-08-25 Tue>
+#+filetags: :comparison:ox-hugo:org-publish:
+#+options: todo:t tags:t pri:t
+#+hugo_base_dir: ../exampleSite
+#+hugo_section: posts
+#+export_file_name: comparison
+
+* TODO Heading with TODO keyword                              :tag1:tag2:
+DEADLINE: <2026-08-30 Sun>
+
+* DONE Heading with DONE keyword
+
+* [#A] Priority heading
+
+* Inline markup
+
+This is /italic/, *bold*, _underlined_, =code=, ~verbatim~, and +strikethrough+.
+
+A link: [[https://hugo-modus.yejun.dev/][hugo-modus demo]].
+
+* Lists
+
+- Item one
+- Item two
+  - Nested item
+  - Another nested item
+- Item three
+
+1. First
+2. Second
+3. Third
+
+* Code blocks
+
+#+begin_src emacs-lisp
+(defun hello (name)
+  "Say hello to NAME."
+  (message "Hello, %s!" name))
+#+end_src
+
+#+begin_src python
+import sys
+
+def main():
+    print(f"Python {sys.version}")
+
+if __name__ == "__main__":
+    main()
+#+end_src
+
+* Example block
+
+#+begin_example
+This is an example block.
+It should preserve line breaks.
+#+end_example
+
+* Quote and verse
+
+#+begin_quote
+Everything should be made as simple as possible, but not simpler.
+
+— Albert Einstein
+#+end_quote
+
+#+begin_verse
+The sky above the port was the color of television,
+    tuned to a dead channel.
+#+end_verse
+
+* Table with alignment
+
+| Name  | Value | Description |
+|-------+-------+-------------|
+| Alpha |     1 | First       |
+| Beta  |     2 | Second      |
+| Gamma |     3 | Third       |
+
+* Special blocks
+
+#+begin_center
+Centered text for comparison.
+#+end_center
+
+#+begin_details
+#+begin_summary
+Summary line
+#+end_summary
+Details content here.
+#+end_details
+
+* Footnotes
+
+Here is some text with a footnote.[fn:1]
+
+* Footnotes content
+
+[fn:1] This is the footnote text.

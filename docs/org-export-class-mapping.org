@@ -50,6 +50,7 @@ style.css 来自 =org-html-htmlize-generate-css=，包含当前 Emacs 主题下�
 | 代码高亮 token | =.org-keyword= 等          | =.chroma .k= 等           | 见下表「语法高亮对照」                                    | 已覆盖                                   |
 | example 块     | =pre.example=              | 代码围栏，无 =.example=   | 由 Chroma 处理                                           | 不适用                                   |
 | 表格对齐       | =.org-left= / =.org-right= | plain table，无对齐 class | 主题已对 table 做全局三线表样式                           | 已覆盖                                   |
+| 定义列表       | =.org-dl=                  | =dl= / =dt= / =dd=        | 全局 =dl/dt/dd= 样式                                     | 缺失                                     |
 | 脚注引用       | =.footref=                 | =.footnote-ref=           | 低调链接色                                               | 缺失                                     |
 | 脚注返回链接   | —                          | =.footnote-backref=       | 低调链接色                                               | 缺失                                     |
 | 脚注定义       | =.footdef= / =.footpara=   | =.footnote-body= 等       | 沿用 =.footnote-definition= 样式                         | 部分                                     |
@@ -96,6 +97,7 @@ org-publish 使用 Emacs htmlize，把源码 token 包在 =.org-*= span 中；ox
 | 下划线 | =span.underline= | =span.underline= | 给 =.underline= 加下划线样式 |
 | 代码块背景/边框 | =pre.src= 样式 | =.chroma= / =pre.chroma= | 已用 =.chroma= 规则覆盖 |
 | 表格三线表 | =table= 全局样式 | =table= 全局样式 | 主题已有 table 规则 |
+| 定义列表缩进/加粗 | =.org-dl= / =dt= / =dd= | =dl= / =dt= / =dd=（无 class） | 全局 =dl/dt/dd= 样式 |
 | 脚注链接低调样式 | =.footref= | =.footnote-ref= / =.footnote-backref= | 新增对应选择器 |
 
 **无法复现的 org-publish 效果**（HTML 结构根本不同，CSS 无法对齐）：
@@ -180,6 +182,25 @@ ox-hugo + goldmark + 主题：
     <code class="language-emacs-lisp" data-lang="emacs-lisp">...</code>
   </pre>
 </div>
+#+end_src
+
+**定义列表（description list）**
+
+org-publish：
+#+begin_src html
+<dl class="org-dl">
+  <dt>Term A</dt><dd>Definition of term A.</dd>
+  ...
+</dl>
+#+end_src
+
+ox-hugo + goldmark + 主题：
+#+begin_src html
+<dl>
+  <dt>Term A</dt>
+  <dd>Definition of term A.</dd>
+  ...
+</dl>
 #+end_src
 
 **脚注**

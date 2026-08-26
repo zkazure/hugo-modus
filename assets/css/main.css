@@ -405,6 +405,19 @@
     @apply flex gap-2;
   }
 
+  /* Definition lists (Org description lists, rendered by goldmark as <dl>) */
+  dl {
+    @apply ml-4 flex flex-col gap-2;
+  }
+
+  dt {
+    @apply font-semibold;
+  }
+
+  dd {
+    @apply ml-4;
+  }
+
   /* Footnote references (goldmark / ox-hugo path) */
   .footnote-ref,
   .footnote-backref {

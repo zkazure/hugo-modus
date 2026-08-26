@@ -32,6 +32,12 @@ A link: [[https://hugo-modus.yejun.dev/][hugo-modus demo]].
 2. Second
 3. Third
 
+* Description list
+
+- Term A :: Definition of term A.
+- Term B :: Definition of term B, with more detail.
+- Term C :: Another definition.
+
 * Code blocks
 
 #+begin_src emacs-lisp

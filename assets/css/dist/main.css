@@ -20,7 +20,6 @@
       --tw-ring-offset-width: 0px;
       --tw-ring-offset-color: #fff;
       --tw-ring-offset-shadow: 0 0 #0000;
-      --tw-outline-style: solid;
       --tw-leading: initial;
       --tw-tracking: initial;
     }
@@ -878,6 +877,22 @@
     display: flex;
   }
 
+  dl {
+    margin-left: calc(var(--spacing) * 4);
+    gap: calc(var(--spacing) * 2);
+    flex-direction: column;
+    display: flex;
+  }
+
+  dt {
+    --tw-font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  dd {
+    margin-left: calc(var(--spacing) * 4);
+  }
+
   .footnote-ref, .footnote-backref {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
@@ -1050,10 +1065,6 @@
     padding: calc(var(--spacing) * 4);
   }
 
-  .font-mono {
-    font-family: var(--font-mono);
-  }
-
   .font-sans {
     font-family: var(--font-sans);
   }
@@ -1073,25 +1084,12 @@
     font-weight: var(--font-weight-medium);
   }
 
-  .font-semibold {
-    --tw-font-weight: var(--font-weight-semibold);
-    font-weight: var(--font-weight-semibold);
-  }
-
   .text-current {
     color: currentColor;
   }
 
   .text-operandi-black-dim {
     color: var(--color-operandi-black-dim);
-  }
-
-  .text-operandi-green {
-    color: var(--color-operandi-green);
-  }
-
-  .text-operandi-red {
-    color: var(--color-operandi-red);
   }
 
   .italic {
@@ -1113,21 +1111,6 @@
   .shadow-xs {
     --tw-shadow: 0 1px 2px 0 var(--tw-shadow-color, #0000000d);
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-  }
-
-  .outline-2 {
-    outline-style: var(--tw-outline-style);
-    outline-width: 2px;
-  }
-
-  .outline-3 {
-    outline-style: var(--tw-outline-style);
-    outline-width: 3px;
-  }
-
-  .outline-4 {
-    outline-style: var(--tw-outline-style);
-    outline-width: 4px;
   }
 
   .transition-shadow {
@@ -1292,12 +1275,6 @@
   syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
-}
-
-@property --tw-outline-style {
-  syntax: "*";
-  inherits: false;
-  initial-value: solid;
 }
 
 @property --tw-leading {

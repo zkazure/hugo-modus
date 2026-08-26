@@ -84,6 +84,32 @@ org-publish 使用 Emacs htmlize，把源码 token 包在 =.org-*= span 中；ox
 2. **dump 了全部 Emacs face**：生成的 =style.css= 通常有 500+ 行，但真正会出现在代码块里的只有 font-lock 相关的一小部分。
 3. **只作视觉参考**：迁移时应挑选对应 Org 元素在 =style.css= 里的颜色和字体，映射到本主题的 CSS 变量上，而不是复制整份文件。
 
+* 可复现 vs 不可复现
+
+**可以复现的 org-publish 效果**（HTML class 存在或结构足够相似，可通过 CSS 对齐）：
+
+| 效果 | org-publish | ox-hugo + goldmark | 复现方式 |
+|---|---|---|---|
+| TODO 红色 / DONE 绿色 | =.todo= / =.done= 颜色 | =.org-todo.todo= / =.org-todo.done= | 给 =.todo= / =.done= 上色 |
+| 标题标签 pill | =.tag > span= 背景/圆角 | =.tag > span= 结构相同 | 扩展 =.tags= 选择器到 =.tag= |
+| verse 块边框/背景 | =p.verse= | =div.verse= | =.verse= 同时命中两者 |
+| 下划线 | =span.underline= | =span.underline= | 给 =.underline= 加下划线样式 |
+| 代码块背景/边框 | =pre.src= 样式 | =.chroma= / =pre.chroma= | 已用 =.chroma= 规则覆盖 |
+| 表格三线表 | =table= 全局样式 | =table= 全局样式 | 主题已有 table 规则 |
+| 脚注链接低调样式 | =.footref= | =.footnote-ref= / =.footnote-backref= | 新增对应选择器 |
+
+**无法复现的 org-publish 效果**（HTML 结构根本不同，CSS 无法对齐）：
+
+| 效果 | org-publish | ox-hugo + goldmark | 原因 |
+|---|---|---|---|
+| 优先级 =[#A]= 颜色 | =span.priority= | 纯文本，无 span | ox-hugo 不导出 priority span，CSS 选不中 |
+| example 块样式 | =pre.example= | 代码围栏，无 =.example= | ox-hugo 把 example 当 src 块导出 |
+| src 块 token 级颜色 | htmlize =.org-keyword= 等 | Chroma =.k= / =.nf= 等 | 两个高亮引擎词法分析不同，token 划分和颜色不可能一一对应 |
+| 表格单元格对齐 class | =.org-left= / =.org-right= | plain table，无对齐 class | ox-hugo 不保留对齐信息为 class |
+| 目录结构 | 纯文本列表 | =div.ox-hugo-toc= 包裹的 HTML | 渲染引擎不同，结构不可能一致 |
+| 标题锚点 | 无 | 主题自动加 =.headline-hash= | 这是主题功能，org-publish 没有 |
+| 脚注 HTML 结构 | =.footdef= / =.footpara= | goldmark 的 =.footnotes= / =.footnote-body= | 结构不同，只能样式上大致对齐 |
+
 * 迁移原则
 
 1. **优先使用主题已定义的 Modus CSS 变量**：=text-operandi-red=、=bg-operandi-subtle-blue= 等，确保 light/dark 模式一致。

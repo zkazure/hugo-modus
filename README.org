@@ -1,6 +1,6 @@
 * hugo-modus
 
-An opinionated Hugo theme using the [[https://protesilaos.com/emacs/modus-themes-colors][colour palette of the Modus themes]].
+A minimalist Hugo theme using the [[https://protesilaos.com/emacs/modus-themes-colors][colour palette of the Modus themes]]: Operandi for light mode and Vivendi for dark mode. It focuses on readable typography.
 
 ** Change log
 
@@ -35,6 +35,20 @@ hugo new -k section posts/_index.md
 hugo new posts/your-first-post.md
 #+END_SRC
 
+The =default.md= and =section.md= archetypes in =archetypes/= provide the
+front matter and starter content for new pages and sections.
+
+** Theme structure
+
+The base layout is =layouts/_default/baseof.html=. The home, single, and list
+templates live under =layouts/_default/= and compose reusable partials for
+headers, footers, article content, metadata, navigation, and page lists.
+
+The =til/= section uses article cards, while =links/= and =series/= have
+section-specific content. The root =hugo.toml= requires Hugo Extended 0.141.0
+or later. =exampleSite/hugo.toml= demonstrates the series taxonomy, syntax
+highlighting, menus, and English and Chinese languages.
+
 ** Development
 
 The theme is styled with Tailwind CSS 4. The site loads the compiled
@@ -46,6 +60,29 @@ The theme is styled with Tailwind CSS 4. The site loads the compiled
 | =make dev=   | Start the Hugo server against =exampleSite= for previewing |
 | =make watch= | Watch =main.css= and rebuild on every change               |
 | =make build= | Compile =main.css= once, optimized for production          |
+
+=make dev= serves =exampleSite/content= with =exampleSite/hugo.toml=, includes
+drafts, disables fast render, and navigates to changed content.
+
+Tailwind CSS is resolved from =PATH= first, then =node_modules/.bin/tailwindcss=,
+then through =npx @tailwindcss/cli@4=. A global Tailwind install is not required.
+The optional =flake.nix= and =.envrc= provide a Nix development shell with Go,
+Hugo, and Tailwind CSS.
+
+*** Styling and Org content
+
+Theme colors are defined as CSS custom properties in the Tailwind =@theme=
+block. Operandi and Vivendi variables cover the light and dark palettes. Markdown
+tables use responsive, left-aligned three-line styling.
+
+Org content can reach the theme through Hugo's go-org parser or through ox-hugo
+export. Their HTML classes differ, so selectors for shared Org elements should
+cover both outputs. For example, go-org uses =.todo.status-todo=,
+=.priority.priority-a=, =.tags > span=, and =.align-right=; ox-hugo uses
+=.todo=, =.priority=, =.tag=, and =.org-right=. Verse styling intentionally
+targets ox-hugo's =.verse= class; go-org's =.verse-block= is left unstyled.
+For detailed export class mappings, see
+[[docs/org-export-class-mapping.org][Org export class mapping]].
 
 *** Generate Org HTML reference CSS
 

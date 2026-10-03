@@ -1,114 +1,19 @@
-# AGENTS.md
+@/home/kazure/.codex/RTK.md
 
-This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+# Agent 工作规则
 
-## Principle
+## 理解任务
 
-1. 当用户提出任务的时候，不要直接开始实现。
-   - 如果任务目标、约束条件或者期望结果不明确：
-     + 先分析缺失的信息
-     + 通过提问确认需求
-   - 如果明确，请你用你的话重述一遍，询问用户你理解的是否正确
-2. 任何可能影响多个文件或者单文件编辑超过 50 行的操作，都必须要制定一个 plan, 和用户商讨后执行：
-   - 书写在 =plan.md= 中
-   - 书写
-   - plan 必须分为两个层次：
-     + 大纲，分阶段目标
-     + 具体实现、步骤
-3. Git 提交原子性
-   - 一个 commit 只做一件事：不同逻辑的改动拆成多个提交，不混在同一个 commit 里
-   - commit message 单一主题，禁止用分号堆叠多个不相关的内容
+- 目标、约束或预期结果不明确时，先询问用户；信息明确时，先复述理解并请用户确认，再开始实现。
+- 尊重用户指定的文件范围、阶段边界和其他约束，不擅自扩大改动范围。
 
-## Overview
+## 计划与执行
 
-hugo-modus is a Hugo theme using the colour palette from the Modus themes (Operandi for light mode, Vivendi for dark mode). It's an opinionated, minimalist theme focused on readability and typography.
+- 涉及多个文件，或单个文件编辑超过 50 行时，先在 `plan.md` 写明分阶段目标和具体步骤，与用户讨论并确认后再执行。
+- 按确认的计划实施；发现需要扩大范围时，先更新计划并与用户确认。
+- 保留用户已有的未提交修改，只编辑完成任务所需的文件。
 
-## Development Commands
+## Git 提交
 
-### CSS Development
-```shell
-make watch    # Watch for changes and rebuild CSS using Tailwind CSS 4
-make build    # Build CSS once (production mode with optimization)
-```
-
-### Hugo Server
-```shell
-make dev      # Start Hugo server with exampleSite content for theme development
-```
-
-The dev server uses:
-- `exampleSite/content` for content
-- `exampleSite/hugo.toml` for configuration
-- Builds drafts
-- Disables fast render for accurate previews
-- Navigates to changed content automatically
-
-### Content Creation
-```shell
-hugo new -k section posts/_index.md    # Create a new section
-hugo new posts/your-first-post.md      # Create new content
-```
-
-## Architecture
-
-### CSS & Styling
-
-The theme uses **Tailwind CSS 4** with a custom theme configuration:
-- Entry point: `assets/css/main.css`
-- Output: `assets/css/dist/main.css`
-- All Modus theme colors are defined as CSS custom properties in the `@theme` block
-- Two color schemes: `operandi-*` (light) and `vivendi-*` (dark)
-- Color categories: base colors (red, green, yellow, blue, magenta, cyan), special colors (rust, gold, olive, etc.), background colors (intense, subtle, nuanced)
-- Markdown tables render as academic "three-line tables" with Modus-themed borders, left-aligned cells, and a responsive scroll wrapper
-- Org content reaches HTML via **two paths**, and most styles must cover both: Hugo's built-in **go-org** parser (used by `make dev`/exampleSite) and **ox-hugo** export (Emacs `ox-html` class semantics → Markdown → Hugo; the theme author's own blog uses this). They emit different class names — go-org: `.todo.status-todo`, `.priority.priority-a`, `.tags > span`, `.align-right`; ox-hugo: `.todo`, `.priority`, `.tag`, `.org-right`. Write selectors that match both, and do not paste CSS from `org-html-htmlize-generate-css` wholesale. **Exception:** verse is intentionally ox-hugo-only — style `.verse` (no `.verse-block`); go-org's `.verse-block` rule was deliberately dropped, so go-org verse falls back to unstyled.
-
-### Layout Structure
-
-The theme follows Hugo's standard layout hierarchy:
-- `layouts/_default/baseof.html` - Base template with header, main, footer structure
-- `layouts/_default/single.html` - Default single page template (uses `article-post.html` partial)
-- `layouts/_default/list.html` - Default list template
-- `layouts/_default/home.html` - Homepage template
-
-### Custom Sections
-
-The theme has specialized layouts for different content types:
-- **til/** - "Today I Learned" posts (uses `article-card.html` partial instead of `article-post.html`)
-- **links/** - Link posts
-- **series/** - Taxonomy for grouping related posts
-
-### Partials Organization
-
-17 partials handle different UI components (in `layouts/partials/`):
-- `head.html`, `header.html`, `footer.html` - Base structure
-- `article-post.html`, `article-card.html`, `article-item.html` - Content display variations
-- `datetime-link.html`, `metadata.html` - Metadata display
-- `toc.html`, `pager.html`, `page-list.html` - Navigation components
-- `section-header.html`, `favicon.html` - Miscellaneous
-
-### Configuration
-
-- Root `hugo.toml` - Theme module configuration (requires Hugo extended v0.141.0+)
-- `exampleSite/hugo.toml` - Example site configuration with:
-  - Custom taxonomies (series)
-  - Syntax highlighting configuration (`noClasses = false` for CSS classes)
-  - Menu configuration
-  - Multi-language support (en, zh)
-
-### Archetypes
-
-Two content archetypes in `archetypes/`:
-- `default.md` - Default content template
-- `section.md` - Section index page template
-
-## Environment Setup
-
-`make build` / `make watch` auto-detect Tailwind CSS in this order: a `tailwindcss` on `PATH`, then `node_modules/.bin/tailwindcss`, then `npx @tailwindcss/cli@4` as a fallback. No global install is required.
-
-Nix flakes (`flake.nix`, `.envrc`) are provided as an optional dev shell with go, hugo, and tailwindcss — run `nix develop`, or use direnv with the included `.envrc`. Not required for normal development.
-
-## Theme Distribution
-
-- Published as Hugo module: `github.com/goofansu/hugo-modus`
-- Can also be installed as git submodule
-- Demo site: https://hugo-modus.yejun.dev/
+- 一个 commit 只包含一个逻辑主题；不同逻辑的改动拆分提交。
+- commit message 聚焦单一主题，不用分号拼接不相关内容。

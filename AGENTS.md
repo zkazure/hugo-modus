@@ -15,6 +15,9 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
    - plan 必须分为两个层次：
      + 大纲，分阶段目标
      + 具体实现、步骤
+3. Git 提交原子性
+   - 一个 commit 只做一件事：不同逻辑的改动拆成多个提交，不混在同一个 commit 里
+   - commit message 单一主题，禁止用分号堆叠多个不相关的内容
 
 ## Overview
 

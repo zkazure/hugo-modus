@@ -164,44 +164,70 @@
 
 @layer base {
   body {
-    @apply text-operandi-black dark:text-vivendi-white bg-operandi-white dark:bg-vivendi-black m-0 p-4 font-sans text-base md:mx-auto md:my-4 md:max-w-4xl md:text-lg;
+    @apply m-0 font-sans text-base;
+    width: min(100% - 3rem, 84rem);
+    margin-inline: auto;
+    padding-block: 2rem;
+    color: #171717;
+    background: #f7f7f4;
+
+    &:where(.dark, .dark *) {
+      color: #f1f1ed;
+      background: #171717;
+    }
   }
 
   a {
-    @apply text-operandi-blue-warmer dark:text-vivendi-blue-warmer hover:bg-operandi-intense-blue dark:hover:bg-vivendi-intense-blue underline transition-colors;
-  }
+    color: #c62828;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
 
-  h1,
-  h2,
-  h3,
-  h4,
-  time,
-  header,
-  footer {
-    @apply font-serif;
+    &:hover {
+      color: #8f1717;
+    }
+
+    &:where(.dark, .dark *) {
+      color: #ff6b63;
+
+      &:hover {
+        color: #ff9992;
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 3px;
+    }
   }
 
   h1,
   h2,
   h3,
   h4 {
-    @apply font-medium text-balance;
+    @apply font-sans font-semibold text-balance;
+    color: inherit;
   }
 
   h1 {
-    @apply text-operandi-black dark:text-vivendi-white text-3xl md:text-5xl;
+    @apply mt-0 text-4xl leading-tight tracking-tight md:text-6xl;
   }
 
   h2 {
-    @apply text-operandi-yellow-faint dark:text-vivendi-yellow-faint mt-10 text-2xl md:text-4xl;
+    @apply mt-12 text-2xl leading-tight tracking-tight md:text-3xl;
+    padding-bottom: 0.45rem;
+    border-bottom: 1px solid #b8b8b2;
+
+    &:where(.dark, .dark *) {
+      border-color: #555;
+    }
   }
 
   h3 {
-    @apply text-operandi-blue-faint dark:text-vivendi-blue-faint mt-8 text-xl md:text-3xl;
+    @apply mt-8 text-xl leading-snug md:text-2xl;
   }
 
   h4 {
-    @apply text-operandi-magenta dark:text-vivendi-magenta mt-6 text-lg md:text-2xl;
+    @apply mt-6 text-lg md:text-xl;
   }
 
   p {
@@ -220,14 +246,16 @@
     }
 
     blockquote {
-      @apply border-operandi-blue-warmer dark:border-vivendi-blue-warmer bg-operandi-nuanced-blue dark:bg-vivendi-nuanced-blue border-l-8 border-solid p-4 wrap-break-word;
+      @apply border-l-4 border-solid py-2 pl-5 wrap-break-word;
+      border-color: #e53935;
     }
 
     figure {
       @apply flex flex-col items-center;
 
       figcaption {
-        @apply font-serif text-sm;
+        @apply text-sm;
+        color: #767676;
       }
     }
 
@@ -263,19 +291,26 @@
     }
 
     table {
-      @apply border-operandi-black dark:border-vivendi-white-dim w-full border-collapse border-t-2 border-b-2 text-base;
+      @apply w-full border-collapse border-y text-base;
+      border-color: #171717;
+
+      &:where(.dark, .dark *) {
+        border-color: #f1f1ed;
+      }
 
       caption {
-        @apply text-operandi-black-dim dark:text-vivendi-white-dim font-serif mb-2 caption-bottom text-center text-sm;
+        @apply mb-2 caption-bottom text-left text-sm;
+        color: #767676;
       }
 
       thead {
-        @apply border-operandi-black dark:border-vivendi-white-dim border-b;
+        @apply border-b;
       }
 
       th,
       td {
-        @apply px-4 py-2 align-top;
+        @apply border-b px-3 py-2 align-top;
+        border-color: #d5d5d0;
       }
 
       th,
@@ -288,7 +323,11 @@
       }
 
       tbody tr:hover {
-        @apply bg-operandi-nuanced-blue dark:bg-vivendi-nuanced-blue transition-colors;
+        background: #ecece8;
+
+        &:where(.dark, .dark *) {
+          background: #242424;
+        }
       }
     }
 
@@ -299,8 +338,116 @@
 }
 
 @layer components {
+  body > header {
+    padding-block: 0 1.25rem;
+    border-bottom: 2px solid currentColor;
+  }
+
+  body > header > div {
+    @apply flex flex-col gap-4 md:flex-row md:items-baseline md:justify-between;
+  }
+
+  body > main {
+    max-width: 72rem;
+    margin-inline: auto;
+  }
+
+  body > main > article:not(.archive-card) {
+    max-width: 68ch;
+    margin-inline: auto;
+  }
+
+  body > footer {
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-top: 1rem;
+    border-top: 1px solid #b8b8b2;
+    color: #767676;
+
+    &:where(.dark, .dark *) {
+      border-color: #555;
+      color: #aaa;
+    }
+  }
+
+  .archive-list {
+    display: grid;
+    grid-template-columns: minmax(7rem, max-content) minmax(0, 1fr);
+    column-gap: 1.5rem;
+    row-gap: 0;
+    padding: 0;
+    list-style: none;
+
+    > li {
+      display: contents;
+    }
+
+    time,
+    a {
+      padding-block: 0.8rem;
+      border-bottom: 1px solid #d5d5d0;
+    }
+
+    time {
+      color: #767676;
+      font-size: 0.9rem;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    :where(.dark, .dark *) & {
+      time,
+      a {
+        border-color: #444;
+      }
+
+      time {
+        color: #aaa;
+      }
+    }
+  }
+
+  .archive-card {
+    padding-block: 1rem 1.5rem;
+    border-bottom: 1px solid #d5d5d0;
+
+    &:where(.dark, .dark *) {
+      border-color: #444;
+    }
+
+    > header h1 {
+      font-size: 1.35rem;
+    }
+
+    > header time {
+      color: #767676;
+    }
+
+    &:where(.dark, .dark *) > header time {
+      color: #aaa;
+    }
+  }
+
+  @media (max-width: 40rem) {
+    body {
+      width: calc(100% - 2rem);
+      padding-block: 1.25rem;
+    }
+
+    .archive-list {
+      grid-template-columns: minmax(5.5rem, max-content) minmax(0, 1fr);
+      column-gap: 0.75rem;
+
+      time {
+        font-size: 0.8rem;
+      }
+    }
+  }
+
   .chroma {
-    @apply overflow-x-auto rounded-lg p-4;
+    @apply overflow-x-auto p-4;
   }
 
   .footnotes {
@@ -314,15 +461,64 @@
   }
 
   .tag-item {
-    @apply text-operandi-black-alt dark:text-vivendi-white-alt bg-operandi-subtle-blue dark:bg-vivendi-subtle-blue rounded-full px-2 py-1 text-sm;
+    @apply px-2 py-1 text-sm;
+    color: #171717;
+    background: #e5e5e2;
+
+    &:where(.dark, .dark *) {
+      color: #f1f1ed;
+      background: #30302e;
+    }
   }
 
   .feed-link {
-    @apply text-operandi-red dark:text-vivendi-red no-underline;
+    @apply no-underline;
   }
 
   .navbar-brand {
-    @apply text-xl text-current no-underline hover:bg-transparent md:text-2xl;
+    @apply text-2xl font-semibold tracking-tight text-current no-underline hover:bg-transparent md:text-3xl;
+  }
+
+  body > header nav {
+    @apply text-sm font-medium md:text-base;
+  }
+
+  body > header nav a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  body > header nav a:hover {
+    color: #c62828;
+  }
+
+  body > header nav a:where(.dark, .dark *):hover {
+    color: #ff6b63;
+  }
+
+  .navbar-brand:hover {
+    color: #c62828;
+  }
+
+  .navbar-brand:where(.dark, .dark *):hover {
+    color: #ff6b63;
+  }
+
+  article > header {
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #d5d5d0;
+
+    &:where(.dark, .dark *) {
+      border-color: #444;
+    }
+  }
+
+  article > header time {
+    color: #767676;
+
+    &:where(.dark, .dark *) {
+      color: #aaa;
+    }
   }
 
   /* ── Org mode content ────────────────────────────────────────────────
@@ -342,24 +538,27 @@
 
   /* TODO / DONE keywords in headings */
   .todo {
-    @apply font-mono text-base font-semibold text-operandi-red dark:text-vivendi-red;
+    @apply font-mono text-base font-semibold;
+    color: #c62828;
   }
 
   .done {
-    @apply font-mono text-base font-semibold text-operandi-green dark:text-vivendi-green;
+    @apply font-mono text-base font-semibold;
+    color: #767676;
   }
 
   .status-todo {
-    @apply text-operandi-red dark:text-vivendi-red;
+    color: #c62828;
   }
 
   .status-done {
-    @apply text-operandi-green dark:text-vivendi-green;
+    color: #767676;
   }
 
   /* Priority cookies: [#A] [#B] [#C] */
   .priority {
-    @apply text-operandi-gold dark:text-vivendi-gold font-mono text-base font-semibold;
+    @apply font-mono text-base font-semibold;
+    color: #c62828;
   }
 
   /* Inline heading tags (:tag1:tag2:) */
@@ -379,19 +578,27 @@
   }
 
   .timestamp-kwd {
-    @apply text-operandi-cyan dark:text-vivendi-cyan;
+    color: #c62828;
   }
 
   /* #+BEGIN_EXAMPLE blocks */
   pre.example {
-    @apply border-operandi-gray dark:border-vivendi-gray bg-operandi-white-dim dark:bg-vivendi-black-dim overflow-x-auto rounded-lg border p-4 font-mono text-sm;
+    @apply overflow-x-auto border p-4 font-mono text-sm;
+    border-color: #d5d5d0;
+    background: #ecece8;
+
+    &:where(.dark, .dark *) {
+      border-color: #444;
+      background: #222;
+    }
   }
 
   /* #+BEGIN_VERSE blocks. ox-hugo emits <div class="verse"> while
      org-publish (ox-html) emits <p class="verse">. The .verse selector
      covers both. */
   .verse {
-    @apply border-operandi-magenta-cooler dark:border-vivendi-magenta-cooler bg-operandi-nuanced-magenta dark:bg-vivendi-nuanced-magenta my-4 rounded-r-lg border-l-4 border-solid px-10 py-4 font-serif text-xl leading-relaxed tracking-wider italic md:text-2xl;
+    @apply my-4 border-l-4 border-solid py-2 pl-5 text-xl leading-relaxed md:text-2xl;
+    border-color: #e53935;
   }
 
   /* Footnote definitions */
@@ -421,6 +628,19 @@
   /* Footnote references (goldmark / ox-hugo path) */
   .footnote-ref,
   .footnote-backref {
-    @apply text-operandi-black-dim dark:text-vivendi-white-dim hover:text-operandi-cyan dark:hover:text-vivendi-cyan font-mono text-xs no-underline;
+    @apply font-mono text-xs no-underline;
+    color: #767676;
+
+    &:hover {
+      color: #c62828;
+    }
+
+    &:where(.dark, .dark *) {
+      color: #aaa;
+
+      &:hover {
+        color: #ff6b63;
+      }
+    }
   }
 }

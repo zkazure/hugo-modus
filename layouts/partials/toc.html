@@ -1,4 +1,12 @@
-{{ if .Params.toc }}
+{{ $showToc := true }}
+{{ if isset .Site.Params "toc" }}
+  {{ $showToc = .Site.Params.toc }}
+{{ end }}
+{{ if isset .Params "toc" }}
+  {{ $showToc = .Params.toc }}
+{{ end }}
+
+{{ if $showToc }}
   <details
     class="bg-operandi-white-dim dark:bg-vivendi-black-dim rounded-lg p-4"
   >

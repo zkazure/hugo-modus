@@ -246,8 +246,13 @@
     }
 
     blockquote {
-      @apply border-l-4 border-solid py-2 pl-5 wrap-break-word;
+      @apply border-l-4 border-solid p-4 wrap-break-word;
       border-color: #e53935;
+      background: #ecece8;
+
+      &:where(.dark, .dark *) {
+        background: #222;
+      }
     }
 
     figure {
@@ -597,8 +602,15 @@
      org-publish (ox-html) emits <p class="verse">. The .verse selector
      covers both. */
   .verse {
-    @apply my-4 border-l-4 border-solid py-2 pl-5 text-xl leading-relaxed md:text-2xl;
-    border-color: #e53935;
+    @apply my-4 border-y py-5 font-serif text-xl leading-relaxed italic md:text-2xl;
+    max-width: 42ch;
+    margin-inline: auto;
+    border-color: #b8b8b2;
+    text-align: center;
+
+    &:where(.dark, .dark *) {
+      border-color: #555;
+    }
   }
 
   /* Footnote definitions */

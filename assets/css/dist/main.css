@@ -605,6 +605,19 @@
     margin-inline: auto;
   }
 
+  .article-pager-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    padding: 0;
+    list-style: none;
+    display: grid;
+  }
+
+  .article-pager-next {
+    text-align: right;
+    grid-column: 2;
+  }
+
   body > footer {
     color: #767676;
     border-top: 1px solid #b8b8b2;

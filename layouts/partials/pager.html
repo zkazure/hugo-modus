@@ -1,15 +1,15 @@
 {{ if or .PrevInSection .NextInSection }}
   <nav>
     <hr class="my-10 border-dashed" />
-    <ul class="space-y-4">
+    <ul class="article-pager-list">
       {{ with .PrevInSection }}
-        <li>
+        <li class="article-pager-previous">
           <span>Previous:</span>
           <a href="{{ .RelPermalink }}">{{ .Title }}</a>
         </li>
       {{ end }}
       {{ with .NextInSection }}
-        <li>
+        <li class="article-pager-next">
           <span>Next:</span>
           <a href="{{ .RelPermalink }}">{{ .Title }}</a>
         </li>
